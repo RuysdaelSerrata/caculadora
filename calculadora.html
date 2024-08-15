@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600, initial-scale=1.0">
+    <title>Calculadora de Fibonacci</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 600px;
+            height: 700px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: black;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: blue;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            font-size: 14px;
+            color: black;
+            background-color: yellow;
+            padding: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #calculateBtn {
+            background-color: green;
+            color: white;
+        }
+
+        #clearBtn {
+            background-color: yellow;
+            color: black;
+        }
+
+        #exitBtn {
+            background-color: red;
+            color: white;
+        }
+
+        #result {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        #result ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #result ul li {
+            padding: 5px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calculadora de la Secuencia de Fibonacci</h1>
+        
+        <label for="n">Escriba el valor:</label>
+        <input type="number" id="n" min="1" placeholder="Número de elementos a calcular">
+        
+        <button id="calculateBtn">Calcular</button>
+        <button id="clearBtn">Limpiar</button>
+        <button id="exitBtn">Salir</button>
+        
+        <div id="result">
+            <ul id="fibonacciList"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            let n = parseInt(document.getElementById('n').value);
+            let fibonacciList = document.getElementById('fibonacciList');
+            fibonacciList.innerHTML = '';
+            
+            if (isNaN(n) || n < 1) {
+                alert('Por favor, introduzca un número válido mayor que 0.');
+                return;
+            }
+
+            let fibonacciSeries = fibonacci(n);
+            for (let i = 0; i < fibonacciSeries.length; i++) {
+                let li = document.createElement('li');
+                li.textContent = fibonacciSeries[i];
+                fibonacciList.appendChild(li);
+            }
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('n').value = '';
+            document.getElementById('fibonacciList').innerHTML = '';
+        });
+
+        document.getElementById('exitBtn').addEventListener('click', function() {
+            window.close(); // Esto puede no funcionar en todos los navegadores por razones de seguridad.
+        });
+
+        function fibonacci(n) {
+            let fib = [0, 1];
+            for (let i = 2; i < n; i++) {
+                fib.push(fib[i - 1] + fib[i - 2]);
+            }
+            return fib.slice(0, n);
+        }
+    </script>
+
+</body>
+</html>
